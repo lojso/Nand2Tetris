@@ -1,0 +1,62 @@
+// This file is part of the materials accompanying the book 
+// "The Elements of Computing Systems" by Nisan and Schocken, 
+// MIT Press. Book site: www.idc.ac.il/tecs
+// File name: projects/03/b/RAM512.hdl
+
+/**
+ * Memory of 512 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM512 {
+    IN in[16], load, address[9];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+
+    DMux8Way(
+        in = true,
+        sel = address[0..2],
+        a = r64Sel1,
+        b = r64Sel2,
+        c = r64Sel3,
+        d = r64Sel4,
+        e = r64Sel5,
+        f = r64Sel6,
+        g = r64Sel7,
+        h = r64Sel8);
+
+    And(a = r64Sel1, b = load, out = r1Load);
+    And(a = r64Sel2, b = load, out = r2Load);
+    And(a = r64Sel3, b = load, out = r3Load);
+    And(a = r64Sel4, b = load, out = r4Load);
+    And(a = r64Sel5, b = load, out = r5Load);
+    And(a = r64Sel6, b = load, out = r6Load);
+    And(a = r64Sel7, b = load, out = r7Load);
+    And(a = r64Sel8, b = load, out = r8Load);
+
+    RAM64(in = in, load = r1Load, address = address[3..8], out = r1Out);
+    RAM64(in = in, load = r2Load, address = address[3..8], out = r2Out);
+    RAM64(in = in, load = r3Load, address = address[3..8], out = r3Out);
+    RAM64(in = in, load = r4Load, address = address[3..8], out = r4Out);
+    RAM64(in = in, load = r5Load, address = address[3..8], out = r5Out);
+    RAM64(in = in, load = r6Load, address = address[3..8], out = r6Out);
+    RAM64(in = in, load = r7Load, address = address[3..8], out = r7Out);
+    RAM64(in = in, load = r8Load, address = address[3..8], out = r8Out);
+
+    Mux8Way16(
+        a = r1Out,
+        b = r2Out,
+        c = r3Out,
+        d = r4Out,
+        e = r5Out,
+        f = r6Out,
+        g = r7Out,
+        h = r8Out,
+        sel = address[0..2],
+        out = out
+    );
+}

@@ -1,0 +1,34 @@
+class GameField {
+    field Tetramino _currentTetramino;
+    field Tetramino _nextTetramino;
+
+    field int _currentRotation;
+
+    constructor GameField new() {
+        let _currentTetramino = TetraminoFactory.createRandom();
+        let _nextTetramino = TetraminoFactory.createRandom();
+
+        let _currentRotation = 0;
+        
+        return this;  
+    }   
+
+    method Tetramino getCurrentTetramino(){
+        return _currentTetramino;
+    }
+
+    method Tetramino getNextTetramino(){
+        return _nextTetramino;
+    }
+
+    method void rotateCurrent(){
+        let _currentRotation = _currentRotation + 1;
+        if(_currentRotation > 3) {
+            let _currentRotation = 0;
+        }
+
+        do _currentTetramino.setRotation(_currentRotation);
+        return;
+    }
+
+}

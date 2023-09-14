@@ -1,0 +1,35 @@
+class Vector2 {
+
+    field int xCoord, yCoord;
+
+    constructor Vector2 new(int x, int y) {
+        let xCoord = x;
+        let yCoord = y;
+        return this; 
+    }   
+
+    method Vector2 Add(Vector2 other){
+        let xCoord = xCoord + other.GetX();
+        let yCoord = yCoord + other.GetY();
+        return this;
+    }
+
+    method Vector2 Sub(Vector2 other){
+        let xCoord = xCoord - other.GetX();
+        let yCoord = yCoord - other.GetY();
+        return this;
+    }
+
+    method int GetX(){
+        return xCoord;
+    }
+
+    method int GetY(){
+        return yCoord;
+    }
+
+    method void dispose() {
+      do Memory.deAlloc(this); 
+      return;
+   }
+}

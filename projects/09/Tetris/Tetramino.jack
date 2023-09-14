@@ -1,0 +1,57 @@
+class Tetramino {
+
+    field Array _baseForm;
+    field Array _rotation;
+
+    constructor Tetramino new(Array content) {
+        let _baseForm = content;
+        let _rotation = Array.new(16);
+        do setRotation(0);
+        return this;  
+    }   
+
+    method void setRotation(int rotation){
+        var int reducedRoitation;
+        var int i, x, y;
+
+        let reducedRoitation = MathExt.mod(rotation, 4);
+
+        let i = 0;
+        while (i < 15) {  
+            let x = MathExt.mod(i, 4);
+            let y = i / 4;
+
+            if (reducedRoitation = 0){
+                let _rotation[i] = _baseForm[i];
+            }
+
+            if (reducedRoitation = 1){
+                let _rotation[i] = _baseForm[12 + y - (x * 4)];
+            }
+
+            if (reducedRoitation = 2){
+                let _rotation[i] = _baseForm[15 - (y * 4) - x];
+            }
+
+            if (reducedRoitation = 3){
+                let _rotation[i] = _baseForm[3 + y + (x * 4)];
+            }
+
+            let i = i + 1;
+        }
+
+        return;
+    }
+
+    method Array getRepresentationArray(){
+        return _rotation;
+    }
+
+    method void dispose() {
+      do _baseForm.dispose();
+      do _rotation.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+}

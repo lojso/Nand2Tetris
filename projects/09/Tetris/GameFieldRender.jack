@@ -1,0 +1,52 @@
+class GameFieldRender {
+    field GameField _field;
+    field int squareSize;
+    field Vector2 basePosition1, basePosition2;
+
+    constructor GameFieldRender new(GameField gameField) {
+        let _field = gameField;
+        let squareSize = 10;
+        let basePosition1 = Vector2.new(20, 20);
+        let basePosition2 = Vector2.new(80, 80);
+        return this;
+    }
+
+    method void render() {
+        do clearScreen();
+        do renderTetromino(_field.getCurrentTetramino());
+        return;
+    }
+
+    method void clearScreen(){
+        do Screen.clearScreen(); 
+        return;
+    }
+
+    method void renderTetromino(Tetramino tetramino){
+        var int index;
+        var int x, y;
+        var Array tetraminoRepresentation;
+        var boolean isSquareShoudDrawn;
+        var Vector2 currentPosition;
+
+        let tetraminoRepresentation = tetramino.getRepresentationArray();
+        do Screen.setColor(true);
+        let index = 0;
+        while (index < 15) {  
+            let isSquareShoudDrawn = tetraminoRepresentation[index];
+
+            if(isSquareShoudDrawn){
+                let x = MathExt.mod(index, 4);
+                let y = index / 4;
+                                
+                let currentPosition = Vector2.new(x * squareSize, y * squareSize);
+                let currentPosition = currentPosition.Add(basePosition1);
+
+                do Screen.drawRectangle(currentPosition.GetX(), currentPosition.GetY(), currentPosition.GetX() + squareSize, currentPosition.GetY() + squareSize);
+                do currentPosition.dispose();
+            }          
+            let index = index + 1;
+        }
+        return;
+    }
+}

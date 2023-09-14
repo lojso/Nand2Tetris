@@ -1,0 +1,27 @@
+class Main {
+    function void main()
+    {
+        var GameField gameField;
+        var GameFieldRender renderer;
+        var char inputKey;
+        var bool isGameRunning;
+
+
+        do LCG.init(1);
+
+        let gameField = GameField.new();
+        let renderer = GameFieldRender.new(gameField);
+
+        let isGameRunning = true;
+
+        while(isGameRunning){
+            let inputKey = Keyboard.keyPressed();
+            if (inputKey = 131) { do gameField.rotateCurrent(); }
+            do renderer.render();
+            do Sys.wait(500);
+        }       
+
+        do Output.printString("Hello! This is a stub. Please implement tetris");
+        return;
+    }
+}

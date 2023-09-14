@@ -1,0 +1,22 @@
+class LCG {
+    static int x;
+    static int m;
+    static int c;
+    static int a;
+
+    function void init(int seed) {
+        let x = seed;
+        let a = 17;
+        let m = 101;
+        return;
+    }
+
+    function int rand() {
+        let x = MathExt.mod((a * x + c), m);
+        return x;
+    }
+
+    function int randRange(int high) {
+       return MathExt.mod(LCG.rand(), high);
+    }
+}

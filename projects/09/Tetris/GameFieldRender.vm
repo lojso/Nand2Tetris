@@ -1,0 +1,112 @@
+function GameFieldRender.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push constant 10
+pop this 1
+push constant 20
+push constant 20
+call Vector2.new 2
+pop this 2
+push constant 80
+push constant 80
+call Vector2.new 2
+pop this 3
+push pointer 0
+return
+function GameFieldRender.render 0
+push argument 0
+pop pointer 0
+push pointer 0
+call GameFieldRender.clearScreen 1
+pop temp 0
+push pointer 0
+push this 0
+call GameField.getCurrentTetramino 1
+call GameFieldRender.renderTetromino 2
+pop temp 0
+push constant 0
+return
+function GameFieldRender.clearScreen 0
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+return
+function GameFieldRender.renderTetromino 6
+push argument 0
+pop pointer 0
+push argument 1
+call Tetramino.getRepresentationArray 1
+pop local 3
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 15
+lt
+not
+if-goto WHILE_END0
+push local 0
+push local 3
+add
+pop pointer 1
+push that 0
+pop local 4
+push local 4
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 4
+call MathExt.mod 2
+pop local 1
+push local 0
+push constant 4
+call Math.divide 2
+pop local 2
+push local 1
+push this 1
+call Math.multiply 2
+push local 2
+push this 1
+call Math.multiply 2
+call Vector2.new 2
+pop local 5
+push local 5
+push this 2
+call Vector2.Add 2
+pop local 5
+push local 5
+call Vector2.GetX 1
+push local 5
+call Vector2.GetY 1
+push local 5
+call Vector2.GetX 1
+push this 1
+add
+push local 5
+call Vector2.GetY 1
+push this 1
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 5
+call Vector2.dispose 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

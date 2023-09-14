@@ -1,0 +1,25 @@
+function LCG.init 0
+push argument 0
+pop static 0
+push constant 17
+pop static 3
+push constant 101
+pop static 1
+push constant 0
+return
+function LCG.rand 0
+push static 3
+push static 0
+call Math.multiply 2
+push static 2
+add
+push static 1
+call MathExt.mod 2
+pop static 0
+push static 0
+return
+function LCG.randRange 0
+call LCG.rand 0
+push argument 0
+call MathExt.mod 2
+return
